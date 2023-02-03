@@ -10,7 +10,7 @@
 @orderAfter DotMoveSystem
 @orderAfter DotMoveSystem_FunctionEx
 
-@plugindesc ♦5.4.3♦ Essential plugin for all Eli plugins.
+@plugindesc ♦5.3.0♦ Essential plugin for all Eli plugins.
 @author Hakuen Studio
 @url https://hakuenstudio.itch.io/eli-book-rpg-maker-mv-mz
 
@@ -18,7 +18,6 @@
 ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
 If you like my work, please consider supporting me on Patreon!
 Patreon      → https://www.patreon.com/hakuenstudio
-Rate Plugin  → https://hakuenstudio.itch.io/eli-book-rpg-maker-mv-mz/rate?source=game
 Terms of Use → https://www.hakuenstudio.com/terms-of-use-5-0-0
 Facebook     → https://www.facebook.com/hakuenstudio
 Instagram    → https://www.instagram.com/hakuenstudio
@@ -52,7 +51,39 @@ How to use
 
 Put above all other Eli plugins.
 
-https://docs.google.com/document/d/1ckAG8ESh6U47Eje2QZ6oajv-cRcsdUJUmRS7PvOseBc/edit?usp=sharing
+♦ Disable Effekseer ♦
+
+This is an experimental attempt to disable Effekseer from the core codes.
+But to completely disable it, you need to replace the Main.js with the 
+one provided with this plugin.
+
+♦ Pixel Perfect ♦
+
+Setting this to true will make your game pixel perfect.
+
+♦ Window Scroll Bars ♦
+
+If you ever used low resolutions on your game, you may have encountered 
+an issue that the game window was showing the system scroll bars on the 
+side.
+Setting this to true will remove the scroll bars.
+
+♦ Dev Tools Focus ♦
+
+If you use the Dev tools(F12), you will notice that when it is open, 
+your game stops running. With this setting on, your game will still run 
+even with the Dev Tools opened.
+
+♦ Quick F5 ♦
+
+Press F5 to restart the game application no longer closes the game window 
+and opens again. I just restart your game without closing it.
+
+============================================================================
+Update Log
+============================================================================
+
+https://tinyurl.com/eliBookPluginLog
 
 ============================================================================
 
@@ -60,13 +91,13 @@ https://docs.google.com/document/d/1ckAG8ESh6U47Eje2QZ6oajv-cRcsdUJUmRS7PvOseBc/
 @text Engine Settings
 @type struct<engineSt>
 @desc Main settings about the engine.
-@default {"pixelPerfect":"false","styleOverflow":"false","--- MZ ONLY ---":"","disableEffekseer":"false"}
+@default {"pixelPerfect":"false","disableEffekseer":"false","styleOverflow":"false"}
 
 @param playtest
 @text Playtest Settings
 @type struct<developerSt>
 @desc Play test settings.
-@default {"openDevTools":"false","nwWindowPos":"0, 0","--- MZ ONLY ---":"","gameFocus":"true","quickRestart":"true"}
+@default {"openDevTools":"false","nwWindowPos":"0, 0","gameFocus":"false","quickRestart":"true"}
 
 */
 
@@ -86,19 +117,13 @@ https://docs.google.com/document/d/1ckAG8ESh6U47Eje2QZ6oajv-cRcsdUJUmRS7PvOseBc/
 @desc Remove the scroll bars of the game window that can appear when resolution is low.
 @default true
 
+@param --- MZ ONLY ---
+
 @param disableEffekseer
 @text Disable Effekseer
 @type boolean
 @desc Set it to true, wil completely wipe out any effekseer reference from your code.
 @default false
-
-@param --- BUG FIXES ---
-
-@param fixBitmapStartLoad
-@text Fix Bitmap Start Load
-@type boolean
-@desc MZ 1.5.0 - If true, it will fix the issue of not showing sprites on screen after hit F5.
-@default true
 
 */
 
@@ -144,6 +169,20 @@ https://docs.google.com/document/d/1ckAG8ESh6U47Eje2QZ6oajv-cRcsdUJUmRS7PvOseBc/
 var Eli = Eli || {}
 var Imported = Imported || {}
 Imported.Eli_Book = true
+
+/* ---------------------------------- ANIME --------------------------------- */
+/*
+ * anime.js v3.2.1
+ * (c) 2020 Julian Garnier
+ * Released under the MIT license
+ * animejs.com
+ */
+
+{
+
+!function(n,e){"object"==typeof exports&&"undefined"!=typeof module?module.exports=e():"function"==typeof define&&define.amd?define(e):n.anime=e()}(this,function(){"use strict";var n={update:null,begin:null,loopBegin:null,changeBegin:null,change:null,changeComplete:null,loopComplete:null,complete:null,loop:1,direction:"normal",autoplay:!0,timelineOffset:0},e={duration:1e3,delay:0,endDelay:0,easing:"linear",round:0},t=["translateX","translateY","translateZ","rotate","rotateX","rotateY","rotateZ","scale","scaleX","scaleY","scaleZ","skew","skewX","skewY","perspective","matrix","matrix3d"],r={CSS:{},springs:{}};function a(n,e,t){return Math.min(Math.max(n,e),t)}function o(n,e){return n.indexOf(e)>-1}function u(n,e){return n.apply(null,e)}var i={arr:function(n){return Array.isArray(n)},obj:function(n){return o(Object.prototype.toString.call(n),"Object")},pth:function(n){return i.obj(n)&&n.hasOwnProperty("totalLength")},svg:function(n){return n instanceof SVGElement},inp:function(n){return n instanceof HTMLInputElement},dom:function(n){return n.nodeType||i.svg(n)},str:function(n){return"string"==typeof n},fnc:function(n){return"function"==typeof n},und:function(n){return void 0===n},nil:function(n){return i.und(n)||null===n},hex:function(n){return/(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(n)},rgb:function(n){return/^rgb/.test(n)},hsl:function(n){return/^hsl/.test(n)},col:function(n){return i.hex(n)||i.rgb(n)||i.hsl(n)},key:function(t){return!n.hasOwnProperty(t)&&!e.hasOwnProperty(t)&&"targets"!==t&&"keyframes"!==t}};function c(n){var e=/\(([^)]+)\)/.exec(n);return e?e[1].split(",").map(function(n){return parseFloat(n)}):[]}function s(n,e){var t=c(n),o=a(i.und(t[0])?1:t[0],.1,100),u=a(i.und(t[1])?100:t[1],.1,100),s=a(i.und(t[2])?10:t[2],.1,100),f=a(i.und(t[3])?0:t[3],.1,100),l=Math.sqrt(u/o),d=s/(2*Math.sqrt(u*o)),p=d<1?l*Math.sqrt(1-d*d):0,v=1,h=d<1?(d*l-f)/p:-f+l;function g(n){var t=e?e*n/1e3:n;return t=d<1?Math.exp(-t*d*l)*(v*Math.cos(p*t)+h*Math.sin(p*t)):(v+h*t)*Math.exp(-t*l),0===n||1===n?n:1-t}return e?g:function(){var e=r.springs[n];if(e)return e;for(var t=0,a=0;;)if(1===g(t+=1/6)){if(++a>=16)break}else a=0;var o=t*(1/6)*1e3;return r.springs[n]=o,o}}function f(n){return void 0===n&&(n=10),function(e){return Math.ceil(a(e,1e-6,1)*n)*(1/n)}}var l,d,p=function(){var n=11,e=1/(n-1);function t(n,e){return 1-3*e+3*n}function r(n,e){return 3*e-6*n}function a(n){return 3*n}function o(n,e,o){return((t(e,o)*n+r(e,o))*n+a(e))*n}function u(n,e,o){return 3*t(e,o)*n*n+2*r(e,o)*n+a(e)}return function(t,r,a,i){if(0<=t&&t<=1&&0<=a&&a<=1){var c=new Float32Array(n);if(t!==r||a!==i)for(var s=0;s<n;++s)c[s]=o(s*e,t,a);return function(n){return t===r&&a===i?n:0===n||1===n?n:o(f(n),r,i)}}function f(r){for(var i=0,s=1,f=n-1;s!==f&&c[s]<=r;++s)i+=e;var l=i+(r-c[--s])/(c[s+1]-c[s])*e,d=u(l,t,a);return d>=.001?function(n,e,t,r){for(var a=0;a<4;++a){var i=u(e,t,r);if(0===i)return e;e-=(o(e,t,r)-n)/i}return e}(r,l,t,a):0===d?l:function(n,e,t,r,a){for(var u,i,c=0;(u=o(i=e+(t-e)/2,r,a)-n)>0?t=i:e=i,Math.abs(u)>1e-7&&++c<10;);return i}(r,i,i+e,t,a)}}}(),v=(l={linear:function(){return function(n){return n}}},d={Sine:function(){return function(n){return 1-Math.cos(n*Math.PI/2)}},Circ:function(){return function(n){return 1-Math.sqrt(1-n*n)}},Back:function(){return function(n){return n*n*(3*n-2)}},Bounce:function(){return function(n){for(var e,t=4;n<((e=Math.pow(2,--t))-1)/11;);return 1/Math.pow(4,3-t)-7.5625*Math.pow((3*e-2)/22-n,2)}},Elastic:function(n,e){void 0===n&&(n=1),void 0===e&&(e=.5);var t=a(n,1,10),r=a(e,.1,2);return function(n){return 0===n||1===n?n:-t*Math.pow(2,10*(n-1))*Math.sin((n-1-r/(2*Math.PI)*Math.asin(1/t))*(2*Math.PI)/r)}}},["Quad","Cubic","Quart","Quint","Expo"].forEach(function(n,e){d[n]=function(){return function(n){return Math.pow(n,e+2)}}}),Object.keys(d).forEach(function(n){var e=d[n];l["easeIn"+n]=e,l["easeOut"+n]=function(n,t){return function(r){return 1-e(n,t)(1-r)}},l["easeInOut"+n]=function(n,t){return function(r){return r<.5?e(n,t)(2*r)/2:1-e(n,t)(-2*r+2)/2}},l["easeOutIn"+n]=function(n,t){return function(r){return r<.5?(1-e(n,t)(1-2*r))/2:(e(n,t)(2*r-1)+1)/2}}}),l);function h(n,e){if(i.fnc(n))return n;var t=n.split("(")[0],r=v[t],a=c(n);switch(t){case"spring":return s(n,e);case"cubicBezier":return u(p,a);case"steps":return u(f,a);default:return u(r,a)}}function g(n){try{return document.querySelectorAll(n)}catch(n){return}}function m(n,e){for(var t=n.length,r=arguments.length>=2?arguments[1]:void 0,a=[],o=0;o<t;o++)if(o in n){var u=n[o];e.call(r,u,o,n)&&a.push(u)}return a}function y(n){return n.reduce(function(n,e){return n.concat(i.arr(e)?y(e):e)},[])}function b(n){return i.arr(n)?n:(i.str(n)&&(n=g(n)||n),n instanceof NodeList||n instanceof HTMLCollection?[].slice.call(n):[n])}function M(n,e){return n.some(function(n){return n===e})}function x(n){var e={};for(var t in n)e[t]=n[t];return e}function w(n,e){var t=x(n);for(var r in n)t[r]=e.hasOwnProperty(r)?e[r]:n[r];return t}function k(n,e){var t=x(n);for(var r in e)t[r]=i.und(n[r])?e[r]:n[r];return t}function O(n){return i.rgb(n)?(t=/rgb\((\d+,\s*[\d]+,\s*[\d]+)\)/g.exec(e=n))?"rgba("+t[1]+",1)":e:i.hex(n)?(r=n.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i,function(n,e,t,r){return e+e+t+t+r+r}),a=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(r),"rgba("+parseInt(a[1],16)+","+parseInt(a[2],16)+","+parseInt(a[3],16)+",1)"):i.hsl(n)?function(n){var e,t,r,a=/hsl\((\d+),\s*([\d.]+)%,\s*([\d.]+)%\)/g.exec(n)||/hsla\((\d+),\s*([\d.]+)%,\s*([\d.]+)%,\s*([\d.]+)\)/g.exec(n),o=parseInt(a[1],10)/360,u=parseInt(a[2],10)/100,i=parseInt(a[3],10)/100,c=a[4]||1;function s(n,e,t){return t<0&&(t+=1),t>1&&(t-=1),t<1/6?n+6*(e-n)*t:t<.5?e:t<2/3?n+(e-n)*(2/3-t)*6:n}if(0==u)e=t=r=i;else{var f=i<.5?i*(1+u):i+u-i*u,l=2*i-f;e=s(l,f,o+1/3),t=s(l,f,o),r=s(l,f,o-1/3)}return"rgba("+255*e+","+255*t+","+255*r+","+c+")"}(n):void 0;var e,t,r,a}function C(n){var e=/[+-]?\d*\.?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?(%|px|pt|em|rem|in|cm|mm|ex|ch|pc|vw|vh|vmin|vmax|deg|rad|turn)?$/.exec(n);if(e)return e[1]}function P(n,e){return i.fnc(n)?n(e.target,e.id,e.total):n}function I(n,e){return n.getAttribute(e)}function D(n,e,t){if(M([t,"deg","rad","turn"],C(e)))return e;var a=r.CSS[e+t];if(!i.und(a))return a;var o=document.createElement(n.tagName),u=n.parentNode&&n.parentNode!==document?n.parentNode:document.body;u.appendChild(o),o.style.position="absolute",o.style.width=100+t;var c=100/o.offsetWidth;u.removeChild(o);var s=c*parseFloat(e);return r.CSS[e+t]=s,s}function B(n,e,t){if(e in n.style){var r=e.replace(/([a-z])([A-Z])/g,"$1-$2").toLowerCase(),a=n.style[e]||getComputedStyle(n).getPropertyValue(r)||"0";return t?D(n,a,t):a}}function T(n,e){return i.dom(n)&&!i.inp(n)&&(!i.nil(I(n,e))||i.svg(n)&&n[e])?"attribute":i.dom(n)&&M(t,e)?"transform":i.dom(n)&&"transform"!==e&&B(n,e)?"css":null!=n[e]?"object":void 0}function E(n){if(i.dom(n)){for(var e,t=n.style.transform||"",r=/(\w+)\(([^)]*)\)/g,a=new Map;e=r.exec(t);)a.set(e[1],e[2]);return a}}function F(n,e,t,r){var a,u=o(e,"scale")?1:0+(o(a=e,"translate")||"perspective"===a?"px":o(a,"rotate")||o(a,"skew")?"deg":void 0),i=E(n).get(e)||u;return t&&(t.transforms.list.set(e,i),t.transforms.last=e),r?D(n,i,r):i}function A(n,e,t,r){switch(T(n,e)){case"transform":return F(n,e,r,t);case"css":return B(n,e,t);case"attribute":return I(n,e);default:return n[e]||0}}function N(n,e){var t=/^(\*=|\+=|-=)/.exec(n);if(!t)return n;var r=C(n)||0,a=parseFloat(e),o=parseFloat(n.replace(t[0],""));switch(t[0][0]){case"+":return a+o+r;case"-":return a-o+r;case"*":return a*o+r}}function S(n,e){if(i.col(n))return O(n);if(/\s/g.test(n))return n;var t=C(n),r=t?n.substr(0,n.length-t.length):n;return e?r+e:r}function L(n,e){return Math.sqrt(Math.pow(e.x-n.x,2)+Math.pow(e.y-n.y,2))}function j(n){for(var e,t=n.points,r=0,a=0;a<t.numberOfItems;a++){var o=t.getItem(a);a>0&&(r+=L(e,o)),e=o}return r}function q(n){if(n.getTotalLength)return n.getTotalLength();switch(n.tagName.toLowerCase()){case"circle":return o=n,2*Math.PI*I(o,"r");case"rect":return 2*I(a=n,"width")+2*I(a,"height");case"line":return L({x:I(r=n,"x1"),y:I(r,"y1")},{x:I(r,"x2"),y:I(r,"y2")});case"polyline":return j(n);case"polygon":return t=(e=n).points,j(e)+L(t.getItem(t.numberOfItems-1),t.getItem(0))}var e,t,r,a,o}function H(n,e){var t=e||{},r=t.el||function(n){for(var e=n.parentNode;i.svg(e)&&i.svg(e.parentNode);)e=e.parentNode;return e}(n),a=r.getBoundingClientRect(),o=I(r,"viewBox"),u=a.width,c=a.height,s=t.viewBox||(o?o.split(" "):[0,0,u,c]);return{el:r,viewBox:s,x:s[0]/1,y:s[1]/1,w:u,h:c,vW:s[2],vH:s[3]}}function V(n,e,t){function r(t){void 0===t&&(t=0);var r=e+t>=1?e+t:0;return n.el.getPointAtLength(r)}var a=H(n.el,n.svg),o=r(),u=r(-1),i=r(1),c=t?1:a.w/a.vW,s=t?1:a.h/a.vH;switch(n.property){case"x":return(o.x-a.x)*c;case"y":return(o.y-a.y)*s;case"angle":return 180*Math.atan2(i.y-u.y,i.x-u.x)/Math.PI}}function $(n,e){var t=/[+-]?\d*\.?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/g,r=S(i.pth(n)?n.totalLength:n,e)+"";return{original:r,numbers:r.match(t)?r.match(t).map(Number):[0],strings:i.str(n)||e?r.split(t):[]}}function W(n){return m(n?y(i.arr(n)?n.map(b):b(n)):[],function(n,e,t){return t.indexOf(n)===e})}function X(n){var e=W(n);return e.map(function(n,t){return{target:n,id:t,total:e.length,transforms:{list:E(n)}}})}function Y(n,e){var t=x(e);if(/^spring/.test(t.easing)&&(t.duration=s(t.easing)),i.arr(n)){var r=n.length;2===r&&!i.obj(n[0])?n={value:n}:i.fnc(e.duration)||(t.duration=e.duration/r)}var a=i.arr(n)?n:[n];return a.map(function(n,t){var r=i.obj(n)&&!i.pth(n)?n:{value:n};return i.und(r.delay)&&(r.delay=t?0:e.delay),i.und(r.endDelay)&&(r.endDelay=t===a.length-1?e.endDelay:0),r}).map(function(n){return k(n,t)})}function Z(n,e){var t=[],r=e.keyframes;for(var a in r&&(e=k(function(n){for(var e=m(y(n.map(function(n){return Object.keys(n)})),function(n){return i.key(n)}).reduce(function(n,e){return n.indexOf(e)<0&&n.push(e),n},[]),t={},r=function(r){var a=e[r];t[a]=n.map(function(n){var e={};for(var t in n)i.key(t)?t==a&&(e.value=n[t]):e[t]=n[t];return e})},a=0;a<e.length;a++)r(a);return t}(r),e)),e)i.key(a)&&t.push({name:a,tweens:Y(e[a],n)});return t}function G(n,e){var t;return n.tweens.map(function(r){var a=function(n,e){var t={};for(var r in n){var a=P(n[r],e);i.arr(a)&&1===(a=a.map(function(n){return P(n,e)})).length&&(a=a[0]),t[r]=a}return t.duration=parseFloat(t.duration),t.delay=parseFloat(t.delay),t}(r,e),o=a.value,u=i.arr(o)?o[1]:o,c=C(u),s=A(e.target,n.name,c,e),f=t?t.to.original:s,l=i.arr(o)?o[0]:f,d=C(l)||C(s),p=c||d;return i.und(u)&&(u=f),a.from=$(l,p),a.to=$(N(u,l),p),a.start=t?t.end:0,a.end=a.start+a.delay+a.duration+a.endDelay,a.easing=h(a.easing,a.duration),a.isPath=i.pth(o),a.isPathTargetInsideSVG=a.isPath&&i.svg(e.target),a.isColor=i.col(a.from.original),a.isColor&&(a.round=1),t=a,a})}var Q={css:function(n,e,t){return n.style[e]=t},attribute:function(n,e,t){return n.setAttribute(e,t)},object:function(n,e,t){return n[e]=t},transform:function(n,e,t,r,a){if(r.list.set(e,t),e===r.last||a){var o="";r.list.forEach(function(n,e){o+=e+"("+n+") "}),n.style.transform=o}}};function z(n,e){X(n).forEach(function(n){for(var t in e){var r=P(e[t],n),a=n.target,o=C(r),u=A(a,t,o,n),i=N(S(r,o||C(u)),u),c=T(a,t);Q[c](a,t,i,n.transforms,!0)}})}function _(n,e){return m(y(n.map(function(n){return e.map(function(e){return function(n,e){var t=T(n.target,e.name);if(t){var r=G(e,n),a=r[r.length-1];return{type:t,property:e.name,animatable:n,tweens:r,duration:a.end,delay:r[0].delay,endDelay:a.endDelay}}}(n,e)})})),function(n){return!i.und(n)})}function R(n,e){var t=n.length,r=function(n){return n.timelineOffset?n.timelineOffset:0},a={};return a.duration=t?Math.max.apply(Math,n.map(function(n){return r(n)+n.duration})):e.duration,a.delay=t?Math.min.apply(Math,n.map(function(n){return r(n)+n.delay})):e.delay,a.endDelay=t?a.duration-Math.max.apply(Math,n.map(function(n){return r(n)+n.duration-n.endDelay})):e.endDelay,a}var J=0;var K=[],U=function(){var n;function e(t){for(var r=K.length,a=0;a<r;){var o=K[a];o.paused?(K.splice(a,1),r--):(o.tick(t),a++)}n=a>0?requestAnimationFrame(e):void 0}return"undefined"!=typeof document&&document.addEventListener("visibilitychange",function(){en.suspendWhenDocumentHidden&&(nn()?n=cancelAnimationFrame(n):(K.forEach(function(n){return n._onDocumentVisibility()}),U()))}),function(){n||nn()&&en.suspendWhenDocumentHidden||!(K.length>0)||(n=requestAnimationFrame(e))}}();function nn(){return!!document&&document.hidden}function en(t){void 0===t&&(t={});var r,o=0,u=0,i=0,c=0,s=null;function f(n){var e=window.Promise&&new Promise(function(n){return s=n});return n.finished=e,e}var l,d,p,v,h,g,y,b,M=(d=w(n,l=t),p=w(e,l),v=Z(p,l),h=X(l.targets),g=_(h,v),y=R(g,p),b=J,J++,k(d,{id:b,children:[],animatables:h,animations:g,duration:y.duration,delay:y.delay,endDelay:y.endDelay}));f(M);function x(){var n=M.direction;"alternate"!==n&&(M.direction="normal"!==n?"normal":"reverse"),M.reversed=!M.reversed,r.forEach(function(n){return n.reversed=M.reversed})}function O(n){return M.reversed?M.duration-n:n}function C(){o=0,u=O(M.currentTime)*(1/en.speed)}function P(n,e){e&&e.seek(n-e.timelineOffset)}function I(n){for(var e=0,t=M.animations,r=t.length;e<r;){var o=t[e],u=o.animatable,i=o.tweens,c=i.length-1,s=i[c];c&&(s=m(i,function(e){return n<e.end})[0]||s);for(var f=a(n-s.start-s.delay,0,s.duration)/s.duration,l=isNaN(f)?1:s.easing(f),d=s.to.strings,p=s.round,v=[],h=s.to.numbers.length,g=void 0,y=0;y<h;y++){var b=void 0,x=s.to.numbers[y],w=s.from.numbers[y]||0;b=s.isPath?V(s.value,l*x,s.isPathTargetInsideSVG):w+l*(x-w),p&&(s.isColor&&y>2||(b=Math.round(b*p)/p)),v.push(b)}var k=d.length;if(k){g=d[0];for(var O=0;O<k;O++){d[O];var C=d[O+1],P=v[O];isNaN(P)||(g+=C?P+C:P+" ")}}else g=v[0];Q[o.type](u.target,o.property,g,u.transforms),o.currentValue=g,e++}}function D(n){M[n]&&!M.passThrough&&M[n](M)}function B(n){var e=M.duration,t=M.delay,l=e-M.endDelay,d=O(n);M.progress=a(d/e*100,0,100),M.reversePlayback=d<M.currentTime,r&&function(n){if(M.reversePlayback)for(var e=c;e--;)P(n,r[e]);else for(var t=0;t<c;t++)P(n,r[t])}(d),!M.began&&M.currentTime>0&&(M.began=!0,D("begin")),!M.loopBegan&&M.currentTime>0&&(M.loopBegan=!0,D("loopBegin")),d<=t&&0!==M.currentTime&&I(0),(d>=l&&M.currentTime!==e||!e)&&I(e),d>t&&d<l?(M.changeBegan||(M.changeBegan=!0,M.changeCompleted=!1,D("changeBegin")),D("change"),I(d)):M.changeBegan&&(M.changeCompleted=!0,M.changeBegan=!1,D("changeComplete")),M.currentTime=a(d,0,e),M.began&&D("update"),n>=e&&(u=0,M.remaining&&!0!==M.remaining&&M.remaining--,M.remaining?(o=i,D("loopComplete"),M.loopBegan=!1,"alternate"===M.direction&&x()):(M.paused=!0,M.completed||(M.completed=!0,D("loopComplete"),D("complete"),!M.passThrough&&"Promise"in window&&(s(),f(M)))))}return M.reset=function(){var n=M.direction;M.passThrough=!1,M.currentTime=0,M.progress=0,M.paused=!0,M.began=!1,M.loopBegan=!1,M.changeBegan=!1,M.completed=!1,M.changeCompleted=!1,M.reversePlayback=!1,M.reversed="reverse"===n,M.remaining=M.loop,r=M.children;for(var e=c=r.length;e--;)M.children[e].reset();(M.reversed&&!0!==M.loop||"alternate"===n&&1===M.loop)&&M.remaining++,I(M.reversed?M.duration:0)},M._onDocumentVisibility=C,M.set=function(n,e){return z(n,e),M},M.tick=function(n){i=n,o||(o=i),B((i+(u-o))*en.speed)},M.seek=function(n){B(O(n))},M.pause=function(){M.paused=!0,C()},M.play=function(){M.paused&&(M.completed&&M.reset(),M.paused=!1,K.push(M),C(),U())},M.reverse=function(){x(),M.completed=!M.reversed,C()},M.restart=function(){M.reset(),M.play()},M.remove=function(n){rn(W(n),M)},M.reset(),M.autoplay&&M.play(),M}function tn(n,e){for(var t=e.length;t--;)M(n,e[t].animatable.target)&&e.splice(t,1)}function rn(n,e){var t=e.animations,r=e.children;tn(n,t);for(var a=r.length;a--;){var o=r[a],u=o.animations;tn(n,u),u.length||o.children.length||r.splice(a,1)}t.length||r.length||e.pause()}return en.version="3.2.1",en.speed=1,en.suspendWhenDocumentHidden=!0,en.running=K,en.remove=function(n){for(var e=W(n),t=K.length;t--;)rn(e,K[t])},en.get=A,en.set=z,en.convertPx=D,en.path=function(n,e){var t=i.str(n)?g(n)[0]:n,r=e||100;return function(n){return{property:n,el:t,svg:H(t),totalLength:q(t)*(r/100)}}},en.setDashoffset=function(n){var e=q(n);return n.setAttribute("stroke-dasharray",e),e},en.stagger=function(n,e){void 0===e&&(e={});var t=e.direction||"normal",r=e.easing?h(e.easing):null,a=e.grid,o=e.axis,u=e.from||0,c="first"===u,s="center"===u,f="last"===u,l=i.arr(n),d=l?parseFloat(n[0]):parseFloat(n),p=l?parseFloat(n[1]):0,v=C(l?n[1]:n)||0,g=e.start||0+(l?d:0),m=[],y=0;return function(n,e,i){if(c&&(u=0),s&&(u=(i-1)/2),f&&(u=i-1),!m.length){for(var h=0;h<i;h++){if(a){var b=s?(a[0]-1)/2:u%a[0],M=s?(a[1]-1)/2:Math.floor(u/a[0]),x=b-h%a[0],w=M-Math.floor(h/a[0]),k=Math.sqrt(x*x+w*w);"x"===o&&(k=-x),"y"===o&&(k=-w),m.push(k)}else m.push(Math.abs(u-h));y=Math.max.apply(Math,m)}r&&(m=m.map(function(n){return r(n/y)*y})),"reverse"===t&&(m=m.map(function(n){return o?n<0?-1*n:-n:Math.abs(y-n)}))}return g+(l?(p-d)/y:d)*(Math.round(100*m[e])/100)+v}},en.timeline=function(n){void 0===n&&(n={});var t=en(n);return t.duration=0,t.add=function(r,a){var o=K.indexOf(t),u=t.children;function c(n){n.passThrough=!0}o>-1&&K.splice(o,1);for(var s=0;s<u.length;s++)c(u[s]);var f=k(r,w(e,n));f.targets=f.targets||n.targets;var l=t.duration;f.autoplay=!1,f.direction=t.direction,f.timelineOffset=i.und(a)?l:N(a,l),c(t),t.seek(f.timelineOffset);var d=en(f);c(d),u.push(d);var p=R(u,n);return t.delay=p.delay,t.endDelay=p.endDelay,t.duration=p.duration,t.seek(0),t.reset(),t.autoplay&&t.play(),t},t},en.easing=h,en.penner=v,en.random=function(n,e){return Math.floor(Math.random()*(e-n+1))+n},en});
+
+}
 
 /* ---------------------------------- BUMB ---------------------------------- */
 class Bump {
@@ -220,561 +259,9 @@ if(Utils.RPGMAKER_NAME === "MV"){
 /* ========================================================================== */
 {
 
-Eli.Easings = {
-
-    linear(t){ return t },
-/* ------------------------------- DEFAULT MZ ------------------------------- */
-    slowStart(t){ return this.easeInQuad(t) },
-    slowEnd(t){ return this.easeOutQuad(t) },
-    slowStartEnd(t){ return this.easeInOutQuad(t) },
-/* ---------------------------------- QUAD ---------------------------------- */
-    easeInQuad(t){ return t**2 },
-    easeOutQuad(t){ return t * (2 - t) },
-    easeInOutQuad(t){ if((t *= 2) < 1){ return 0.5 * this.easeInQuad(t) } return -0.5 * (--t * (t - 2) - 1) },
-    easeOutInQuad(t){ if(t < 0.5){ return this.easeOutQuad(t * 2) / 2 } return this.easeInQuad((t - 0.5) * 2) / 2 + 0.5 },
-/* ---------------------------------- CUBIC --------------------------------- */
-    easeInCubic(t){ return t**3 },
-    easeOutCubic(t){ return --t * t * t + 1 },
-    easeInOutCubic(t){ if((t *= 2) < 1){ return 0.5 * this.easeInCubic(t) } return 0.5 * ((t -= 2) * t * t + 2) },
-    easeOutInCubic(t){ if(t < 0.5){ return this.easeOutCubic(t * 2) / 2 } return this.easeInCubic((t - 0.5) * 2) / 2 + 0.5 },
-/* ---------------------------------- QUART --------------------------------- */
-    easeInQuart(t){ return t**4 },
-    easeOutQuart(t){ return 1 - --t * t**3 },
-    easeInOutQuart(t){ if((t *= 2) < 1){ return 0.5 * this.easeInQuart(t) } return -0.5 * ( (t -= 2) * t**3 - 2) },
-    easeOutInQuart(t){ if(t < 0.5){ return this.easeOutQuart(t * 2) / 2 } return this.easeInQuart((t - 0.5) * 2) / 2 + 0.5 },
-/* ---------------------------------- QUINT --------------------------------- */
-    easeInQuint(t){ return t**5 },
-    easeOutQuint(t){ return --t * t**4 + 1 },
-    easeInOutQuint(t){ if((t *= 2) < 1){ return 0.5 * this.easeInQuint(t) } return 0.5 * ( (t -= 2) * t**4 + 2) },
-    easeOutInQuint(t){ if(t < 0.5){ return this.easeOutQuint(t * 2) / 2 } return this.easeInQuint((t - 0.5) * 2) / 2 + 0.5 },
-
-/* ---------------------------------- SINE ---------------------------------- */
-    easeInSine(t){ const pi = Math.PI; return Math.cos(t * pi / 2 - pi) + 1.0 },
-    easeOutSine(t){ return Math.sin((t * Math.PI) / 2) },
-    easeInOutSine(t){ return 0.5 * (1 - Math.cos(Math.PI * t)) },
-    easeOutInSine(t){ if(t < 0.5){ return this.easeOutSine(t * 2) / 2 } return this.easeInSine((t - 0.5) * 2) / 2 + 0.5 },
-/* ---------------------------------- EXPO ---------------------------------- */
-    easeInExpo(t){ return t === 0 ? 0 : Math.pow(1024, t - 1) },
-    easeOutExpo(t){ return t === 1 ? 1 : 1 - Math.pow(2, -10 * t) },
-    easeInOutExpo(t){ if (t === 0){ return 0 } if (t === 1){ return 1 } if ((t *= 2) < 1) { return 0.5 * Math.pow(1024, t - 1) } return 0.5 * (-Math.pow(2, -10 * (t - 1)) + 2) },
-    easeOutInExpo(t){ if(t < 0.5){ return this.easeOutExpo(t * 2) / 2 } return this.easeInExpo((t - 0.5) * 2) / 2 + 0.5 },
-/* ---------------------------------- CIRC ---------------------------------- */
-    easeInCirc(t){ return 1 - Math.sqrt(1 - t * t) },
-    easeOutCirc(t){ return Math.sqrt(1 - --t * t) },
-    easeInOutCirc(t){ if ((t *= 2) < 1){ return -0.5 * (Math.sqrt(1 - t * t) - 1) } return 0.5 * (Math.sqrt(1 - (t -= 2) * t) + 1) },
-    easeOutInCirc(t){ if(t < 0.5){ return this.easeOutCirc(t * 2) / 2 } return this.easeInCirc((t - 0.5) * 2) / 2 + 0.5 },
-/* ---------------------------------- BACK ---------------------------------- */
-    easeInBack(t){ const s = 1.70158; return t * t * ((s + 1) * t - s) },
-    easeOutBack(t){ const s = 1.70158; return --t * t * ((s + 1) * t + s) + 1 },
-    easeInOutBack(t){ const s = 1.70158 * 1.525; if((t *= 2) < 1){ return 0.5 * (t * t * ((s + 1) * t - s)) }else{ return 0.5 * ((t -= 2) * t * ((s + 1) * t + s) + 2) } },
-    easeOutInBack(t){ if(t < 0.5){ return this.easeOutBack(t * 2) / 2 } return this.easeInBack((t - 0.5) * 2) / 2 + 0.5 },
-/* --------------------------------- BOUNCE --------------------------------- */
-    easeInBounce(t){ return 1 - this.easeOutBounce(1 - t) },
-    easeOutBounce(t){ if (t < 1 / 2.75) { return 7.5625 * t * t } else if (t < 2 / 2.75) { return 7.5625 * (t -= 1.5 / 2.75) * t + 0.75 } else if (t < 2.5 / 2.75) { return 7.5625 * (t -= 2.25 / 2.75) * t + 0.9375 } else { return 7.5625 * (t -= 2.625 / 2.75) * t + 0.984375 } },
-    easeInOutBounce(t){ if(t < 0.5){ return this.easeInBounce(t * 2) * 0.5 } return this.easeOutBounce(t * 2 - 1) * 0.5 + 0.5 },
-    easeOutInBounce(t){ if(t < 0.5){ return this.easeOutBounce(t * 2) / 2 } return this.easeInBounce((t - 0.5) * 2) / 2 + 0.5 },
-/* --------------------------------- ELASTIC -------------------------------- */
-    easeInElastic(t){ if (t === 0){ return 0 } if (t === 1){ return 1 } return -Math.pow(2, 10 * (t - 1)) * Math.sin((t - 1.1) * 5 * Math.PI) },
-    easeOutElastic(t){ if (t === 0){ return 0 } if (t === 1){ return 1 } return Math.pow(2, -10 * t) * Math.sin((t - 0.1) * 5 * Math.PI) + 1 },
-    easeInOutElastic(t){ if (t === 0){ return 0 } if (t === 1){ return 1 } t *= 2; if (t < 1){ return -0.5 * Math.pow(2, 10 * (t - 1)) * Math.sin((t - 1.1) * 5 * Math.PI) } return 0.5 * Math.pow(2, -10 * (t - 1)) * Math.sin((t - 1.1) * 5 * Math.PI) + 1 },
-    easeOutInElastic(t){ if(t < 0.5){ return this.easeOutElastic(t * 2) / 2 } return this.easeInElastic((t - 0.5) * 2) / 2 + 0.5 },
-/* --------------------------------- EXECUTE -------------------------------- */
-    execute(type, t){ 
-        return this[type](t) 
-    },
-}
-
-Eli.AnimeGroup = class {
-
-    constructor(animations, data){
-        this.paused = true
-        this.direction = "normal"
-        // this.direction = {
-        //     type: "normal",
-        //     current: "normal",
-        // }
-        this.progress = 0
-        this.childProgress = []
-        this.finished = false
-        this.onStart = new Function()
-        this.onUpdate = new Function()
-        this.onComplete = new Function()
-        this.childrens = []
-        this.initialize(animations, data)
-    }
-
-    initialize(animations, data){
-        this.paused = data.paused ?? true
-        this.direction = data.direction ?? "normal"
-        // this.direction = {
-        //     type: data.direction || "normal",
-        //     current: data.direction === "alternate" ? "normal" : data.direction
-        // }
-        this.onStart = data.onStart || new Function()
-        this.onUpdate = data.onUpdate || new Function()
-        this.onComplete = data.onComplete || new Function()
-        this.childrens = animations
-        this.setGroupToAnimations()
-    }
-
-    setGroupToAnimations(){
-        for(let i = 0; i < this.childrens.length; i++){
-            const child = this.childrens[i]
-            child.group = this
-            child.groupIndex = i
-        }
-    }
-
-    updateProgress(){
-        this.progress = this.childProgress.reduce((previous, next) => previous + next, 0) / this.childrens.length
-    }
-
-    setAnimations(animations){
-        this.childrens = animations
-        this.setGroupToAnimations()
-    }
-
-    play(direction){
-        this.direction = direction || this.direction
-        
-        this.onStart(this)
-
-        for(const animation of this.childrens){
-            animation.play(direction)
-        }
-
-        this.paused = false
-        this.finished = false
-    }
-
-    restart(direction){
-        this.direction = direction || this.direction
-
-        this.onStart(this)
-
-        for(const animation of this.childrens){
-            animation.restart(direction)
-        }
-
-        this.finished = false
-        this.paused = false
-    }
-
-    pause(){
-        this.paused = true
-    }
-
-    resume(){
-        this.paused = false
-    }
-
-    isPaused(){
-        return this.paused
-    }
-
-    isRunning(){
-        return this.childrens.some(anim => anim.isRunning())
-    }
-
-    update(){
-        if(this.isPaused()) return
-
-        for(const animation of this.childrens){
-            animation.update()
-        }
-        
-        if(this.childrens.every(item => item.isFinished()) && !this.finished){
-            this.onComplete(this)
-            this.finished = true
-            
-        }else if(!this.finished){
-            this.onUpdate(this)
-            this.updateProgress()
-        }
-    }
-
-    isFinished(){
-        return this.finished
-    }
-
-}
-    
-Eli.Anime = class {
-
-    constructor(animeData){
-        this.data = {
-            target: null,
-            direction: {current: 0, type: ""},
-            loop: {current: 0, target: 0},
-            value: {start: 0, current: 0, target: 0},
-            propName: "",
-            autoPlay: true,
-            startDelay: {current: 0, target: 0},
-            endDelay: {current: 0, target: 0},
-            duration: {current: 0, target: 0},
-            onStart: () => {},
-            onUpdate: () => {},
-            onComplete: () => {},
-            progress: 0,
-            easing: "",
-        }
-        this.group = null
-        this.groupIndex = -1
-        this.paused = false
-        this.running = true
-        this.initialize(animeData)
-    }
-
-    initialize(animeData){
-        this.data = animeData
-        this.prepareToStart()
-    }
-
-    prepareToStart(){
-        const dirType = this.data.direction.type
-        
-        if(dirType === "alternate"){
-            this.setAlternateDirection()
-           
-            if(this.data.loop.target === 0){
-                this.data.loop.target = 1
-            }
-        }
-
-        this.refreshCurrentValue()
-        if(this.data.autoPlay){
-            this.setPropValue(this.getStartValue())
-        }
-        
-        this.data.duration.current = -1
-    }
-
-    setAlternateDirection(){
-        const dir = this.data.direction.current === "normal" ? "reverse" : "normal"
-        this.data.direction.current = dir
-    }
-
-    refreshCurrentValue(){
-        this.data.value.current = this.getStartValue()
-    }
-
-    getStartValue(){
-        const value = {
-            "normal": this.data.value.start,
-            "reverse": this.data.value.target,
-        }[this.data.direction.current]
-
-        return value
-    }
-
-    getTargetValue(){
-        const value = {
-            "normal": this.data.value.target,
-            "reverse": this.data.value.start,
-        }[this.data.direction.current]
-
-        return value
-    }
-
-    setPropValue(value){
-        this.data.target[this.data.propName] = value
-    }
-
-    update(){
-        if(this.isPaused() || !this.data.autoPlay) return
-
-        if(this.canDelayStart()){
-            this.updateStartDelay()
-
-        }else if(this.canStart()){
-            this.onAnimeStart()
-
-        }else if(this.canRun()){
-            this.updateValue()
-            
-        }else if(this.canEnd()){
-            this.onAnimeComplete()
-
-        }else if(this.canDelayEnd()){
-            this.updateEndDelay()
-
-        }else if(this.needLoop()){
-            this.updateLoop()
-
-        }else{
-            this.running = false
-        }
-    }
-
-    canDelayStart(){
-        return this.data.startDelay.current < this.data.startDelay.target
-    }
-
-    updateStartDelay(){
-        this.data.startDelay.current++
-        this.running = true
-    }
-
-    canStart(){
-        return this.data.duration.current === -1
-    }
-
-    onAnimeStart(){
-        this.data.onStart(this)
-        this.data.duration.current = 0
-    }
-
-    canRun(){
-        return this.data.duration.current < this.data.duration.target
-    }
-
-    updateValue(){
-        if(this.isPropOnTarget()){
-            this.data.duration.current = this.data.duration.target
-            this.updateProgress(1)
-
-        }else{
-            this.data.duration.current++
-
-            const elapsedTime = this.calculateTime()
-            const value = this.processValue(this.getStartValue(), elapsedTime, this.getTargetValue())
-            this.setPropValue(value)
-            this.updateProgress(elapsedTime)
-        }
-
-        this.onAnimeUpdate()
-    }
-
-    isPropOnTarget(){
-        return this.getPropValue() === this.getTargetValue()
-    }
-
-    getPropValue(){
-        return this.data.target[this.data.propName]
-    }
-
-    updateProgress(elapsedTime){
-        this.data.progress = Math.floor(elapsedTime * 100)
-
-        if(this.group){
-            this.group.childProgress[this.groupIndex] = this.data.progress
-            //this.group.updateProgress()
-        }
-    }
-
-    calculateTime(){
-        const elapsedTime = this.data.duration.current / this.data.duration.target
-        return Eli.Easings.execute(this.data.easing, elapsedTime)
-    }
-
-    processValue(startValue, elapsedTime, endValue){
-        return startValue + elapsedTime * (endValue - startValue)
-    }
-
-    onAnimeUpdate(){
-        this.data.onUpdate(this)
-    }
-
-    canEnd(){
-        return this.data.duration.current === this.data.duration.target
-    }
-
-    onAnimeComplete(){
-        this.data.onComplete(this)
-        this.data.duration.current++
-    }
-
-    canDelayEnd(){
-        return this.data.endDelay.current < this.data.endDelay.target
-    }
-
-    resetTargetEndDelay(){
-        this.data.endDelay.target = 0
-    }
-
-    updateEndDelay(){
-        this.data.endDelay.current++
-    }
-
-    needLoop(){
-        return this.data.loop.current < this.data.loop.target
-    }
-
-    updateLoop(){
-        this.data.loop.current++
-        this.restart()
-    }
-
-    play(direction){
-        this.restart(direction)
-
-        this.resume()
-        this.data.autoPlay = true
-    }
-
-    restart(direction){
-        this.resetData()
-
-        if(direction){
-            this.data.direction.current = direction
-
-        }else if(this.data.direction.type === "alternate"){
-            this.setAlternateDirection()
-        }
-
-        this.refreshCurrentValue()
-        
-        this.setPropValue(this.getStartValue())
-        this.updateProgress(0)
-    }
-
-    resetData(){
-        this.data.startDelay.current = 0
-        this.data.endDelay.current = 0
-        this.data.duration.current = -1
-    }
-
-    pause(){
-        this.paused = true
-    }
-
-    resume(){
-        this.paused = false
-    }
-
-    isFinished(){
-        return this.running === false
-    }
-
-    isRunning(){
-        return this.running && !this.isPaused()
-    }
-
-    isPaused(){
-        return this.paused
-    }
-}
-
-Eli.AnimeManager = {
-
-    createAnimationData(target, propName, propData, defData){
-        const callBacks = this.initCallbacks(propData)
-        const animeData = {
-            target: target,
-            propName: propName,
-            value: this.initValue(propData, target[propName]),
-            duration: this.initDuration(propData, defData),
-            startDelay: this.initStartDelay(propData, defData),
-            endDelay: this.initEndDelay(propData, defData),
-            loop: this.initLoop(propData, defData),
-            direction: this.initDirection(propData, defData),
-            easing: propData.easing === undefined ? (defData.easing || "linear") : propData.easing,
-            autoPlay: propData.autoPlay === undefined ? defData.autoPlay : propData.autoPlay,
-            progress: 0,
-            onStart: callBacks.onStart,
-            onUpdate: callBacks.onUpdate,
-            onComplete: callBacks.onComplete,
-        }
-
-        return animeData
-    },
-
-    initValue(propData, propValue){
-        const value = {start: 0, target: 0}
-
-        if(propData.value.constructor.name === "Array"){
-            value.start = propData.value[0]
-            value.target = propData.value[1]
-
-        }else{
-            value.start = propValue
-            value.target = propData.value
-        }
-
-        return {
-            start: value.start, 
-            current: value.start, 
-            target: value.target
-        }
-    },
-
-    initDuration(propData, defData){
-        return {
-            current: -1, 
-            target: (propData.duration === undefined ? defData.duration : propData.duration) || 1
-        }
-    },
-
-    initStartDelay(propData, defData){
-        return {
-            current: 0, 
-            target: (propData.startDelay === undefined ? defData.startDelay : propData.startDelay) || 1
-        }
-    },
-
-    initEndDelay(propData, defData){
-        return {
-            current: 0, 
-            target: (propData.endDelay === undefined ? defData.endDelay : propData.endDelay) || 1
-        }
-    },
-
-    initLoop(propData, defData){
-        const loop = propData.loop === undefined ? (defData.loop || 0) : propData.loop
-        return {
-            current: 0, 
-            target: loop === true ? Infinity : loop
-        }
-    },
-
-    initDirection(propData, defData){
-        const dirType = propData.direction === undefined ? (defData.direction || "normal") : propData.direction
-        return {
-            type: dirType,
-            current: dirType === "alternate" ? "normal" : dirType
-        }
-    },
-
-    initCallbacks(propData){
-        return {
-            onStart: propData.onStart || new Function(),
-            onUpdate: propData.onUpdate || new Function(),
-            onComplete: propData.onComplete || new Function(),
-        }
-    },
-
-    createDefaultData(){
-        return {
-            duration: 1,
-            startDelay: 1,
-            endDelay: 1,
-            easing: "linear",
-            direction: "normal",
-            loop: 0,
-            autoPlay: true,
-            needSave: false,
-        }
-    },
-
-    createAnimations(target, props, defaultData){
-        const animations = []
-
-        for(const name in props){
-            const animeData = this.createAnimationData(target, name, props[name], defaultData)
-            animations.push(new Eli.Anime(animeData))
-        }
-
-        return animations
-    },
-
-}
-
 Eli.String = {
 
     regRemoveSpace: /\s/g,
-    regRemoveEscapeCodes_1: /\x1b(?:[^\]]+)\[(?:[^\]]+)]/gmi,
-    regRemoveEscapeCodes_2: /\\(?:[^\]]+)\[(?:[^\]]+)]/gmi,
-    regRemoveEscapeCodes_3: /<(?:[^\>]+)>/gmi,
 
     removeSpaces(str){
         return str.replace(this.regRemoveSpace, "")
@@ -783,35 +270,6 @@ Eli.String = {
     replaceAll(str, replaceThis, withThat, flags = "g"){
         return str.replaceAll(replaceThis, withThat)
     },
-
-    removeAllEscapeCodes(text){
-        const regex = this.regRemoveEscapeCodes_1
-        const regex2 = this.regRemoveEscapeCodes_2
-        const regex3 = this.regRemoveEscapeCodes_3
-
-        let maxLoop = 0
-        
-        text = text.replace(regex, "")
-        text = text.replace(regex2, "")
-        text = text.replace(regex3, "")
-
-        if(Imported.Eli_EscapeCodes){
-
-            while(text.includes(Eli.EscapeCodes.openIf) && maxLoop < 5){
-                text = this.removeEvalTernary(text)
-                maxLoop++
-            }
-    
-            maxLoop = 0
-    
-            while(text.includes(Eli.EscapeCodes.openEval) && maxLoop < 5){
-                text = this.removeEval(text)
-                maxLoop++
-            }
-        }
-
-        return text
-    }
 }
 
 Eli.Array = {
@@ -907,6 +365,7 @@ Eli.Date = {
 Eli.Utils = {
 
     regExtractMeta: /<([^<>:]+)(:?)([^>]*)>/g,
+    regRemoveEscapeCodes: /(\\.\[[^]])/gi,
     regVariable1: /\x1b\x1b/g,
     regVariable2: /\x1bV\[(\d+)\]/gi,
     windowMargin: 4,
@@ -1007,49 +466,45 @@ Eli.Utils = {
     isDataActor(data) {
         return data.hasOwnProperty("nickname")
     },
-
-    isDataClass(data) {
-        return data.hasOwnProperty("learnings")
-    },
-
-    isDataSkills(data) {
-        return data.hasOwnProperty("stypeId")
-    },
-
-    isDataItem(data) {
-        return data.hasOwnProperty("itypeId")
-    },
-
-    isDataWeapon(data) {
-        return data.hasOwnProperty("wtypeId")
-    },
     
     isDataArmor(data) {
         return data.hasOwnProperty("atypeId")
     },
     
+    isDataClass(data) {
+        return data.hasOwnProperty("learnings")
+    },
+    
     isDataEnemy(data) {
         return data.hasOwnProperty("dropItems")
     },
-
-    isDataTroops(data) {
-        return data.hasOwnProperty("members")
-    },
     
-    isDataStates(data) {
-        return data.hasOwnProperty("stepsToRemove")
-    },
-
-    isDataTileset(data){
-        data.hasOwnProperty("stepsToRemove")
+    isDataItem(data) {
+        return data.hasOwnProperty("itypeId")
     },
     
     isDataMapInfo(data) {
         return data.hasOwnProperty("expanded")
     },
     
+    isDataSkills(data) {
+        return data.hasOwnProperty("stypeId")
+    },
+    
+    isDataStates(data) {
+        return data.hasOwnProperty("stepsToRemove")
+    },
+    
     isDataSystem(data) {
         return data.hasOwnProperty("locale")
+    },
+    
+    isDataTroops(data) {
+        return data.hasOwnProperty("members")
+    },
+    
+    isDataWeapon(data) {
+        return data.hasOwnProperty("wtypeId")
     },
 
     isEvent(character){
@@ -1086,12 +541,9 @@ Eli.Utils = {
         return text
     },
 
-    convertEscapeCharacters(text, subWin){
+    convertEscapeCharacters(text){
         const rect = new Rectangle(0,0,0,0)
         const tempWin = new Window_Base(rect)
-        if(subWin){
-            tempWin.contents.fontSize = subWin.contents.fontSize
-        }
         text = tempWin.convertEscapeCharacters(text)
 
         return text
@@ -1191,7 +643,6 @@ Eli.Utils = {
             Decrypter._ignoreList.push(image)
         }
     },
-    
     getFaceSize(){
         return {
             width: ImageManager.faceWidth,
@@ -1224,14 +675,6 @@ Eli.KeyCodes = {
         start: 9, l3: 10, r3: 11, up: 12, down: 13, left: 14, right: 15
     },
 
-    mouse: {
-        left: 0,
-        middle: 1,
-        right: 2,
-        back: 3,
-        forward: 5,
-    },
-
     defaultKeyboard: [
         9, 13, 16, 17, 18, 27, 32, 33, 34, 37, 38, 39, 
         40, 45, 81, 87, 88, 90, 96, 98, 100, 102, 104, 120
@@ -1252,8 +695,6 @@ Eli.PluginManager = {
 
     currentEventId: 0,
     currentInterpreter: null,
-    regVariable: /\\V\[(\d+)\]/gi,
-    regSelfVariable: /\\SV\[([^a-zA-Z]+)\]/gi,
 
     getPluginName(){
         const srcScript = document.currentScript.src
@@ -1301,14 +742,7 @@ Eli.PluginManager = {
         return param
     },
 
-    registerCommands(plugin, commands){
-        const pluginName = this.getPluginName()
-
-        for(const command of commands){
-            const callBack = command
-            PluginManager.registerCommand(pluginName, command, plugin[callBack].bind(plugin))
-        }
-    },
+    registerCommands(plugin, commands){},
 
     createRangeOfNumbers(str){
         const ids = Eli.String.removeSpaces(Eli.Utils.convertEscapeVariablesOnly(str)).split(",")
@@ -1338,31 +772,6 @@ Eli.PluginManager = {
 
         return scope["funcName"](str)
     },
-
-    parseVariables(str){
-        return this.convertEscapeVariables(str)
-    },
-
-    convertEscapeVariables(args){
-        let match;
-        while(match = this.regVariable.exec(args)){
-            const varId = Number(match[1]) || 0
-            const value = $gameVariables.value(varId)
-            args = args.replace(match[0], value)
-        }
-
-        return args
-    },
-
-    convertEscapeSelfVariable(args){
-        let match;
-        while(match = this.regSelfVariable.exec(args)){
-            const [varId, eventId = this.currentEventId, mapId = $gameMap.mapId()] = match[1].split(",").map(item => Number(item))
-            const value = $gameVariables.selfValue([mapId, eventId, varId])
-            args = args.replace(match[0], value)
-        }
-        return args
-    }
 }
 
 Eli.ColorManager = {
@@ -1502,7 +911,7 @@ Eli.ColorManager = {
 
 Eli.Book = {
 
-    version: 5.43,
+    version: 5.30,
     url: "https://hakuenstudio.itch.io/eli-book-rpg-maker-mv-mz",
     alias: {},
     parameters: {
@@ -1510,7 +919,6 @@ Eli.Book = {
             pixelPerfect: false,
             disableEffekseer: false,
             styleOverflow: false,
-            fixBitmapStartLoad: false,
         },
         playtest: {
             openDevTools: false, 
@@ -1518,6 +926,7 @@ Eli.Book = {
             gameFocus: false, 
             quickRestart: false
         },
+
     },
     
     initialize(){
@@ -1533,7 +942,6 @@ Eli.Book = {
         this.parameters.engine.pixelPerfect = this.parameters.engine.pixelPerfect === "true"
         this.parameters.engine.disableEffekseer = this.parameters.engine.disableEffekseer === "true"
         this.parameters.engine.styleOverflow = this.parameters.engine.styleOverflow === "true"
-        this.parameters.engine.fixBitmapStartLoad = this.parameters.engine.fixBitmapStartLoad === "true"
 
         this.parameters.playtest = JSON.parse(parameters.playtest)
         this.parameters.playtest.openDevTools = this.parameters.playtest.openDevTools === "true"
@@ -1569,16 +977,37 @@ Eli.Book = {
 
             if(this.playtest().openDevTools){
                 nw.Window.get().showDevTools()
+
+                const [x, y] =  this.playtest().nwWindowPos.split(",").map(item => Number(item))
+
+                if(x > -1){
+                    nw.Window.get().x = x
+                    nw.Window.get().y = y
+                }
+
                 setTimeout(() => {nw.Window.get().focus()}, 1500)
-            }
 
-            const [x, y] =  this.playtest().nwWindowPos.split(",").map(item => Number(item))
-
-            if(x > -1){
-                nw.Window.get().x = x
-                nw.Window.get().y = y
             }
+        }
+    },
+
+    cmd_callScene(args){
+        const sceneClass = args.name
+
+        if(sceneClass === "Scene_Status"){
+            const index = Number(args.actorId)
+            const partyMember = this.members()[index]
+            $gameParty.setMenuActor(partyMember)
+            SceneManager.push(window[sceneClass])
             
+        }else if(sceneClass === "Scene_Name"){
+            const actorId = Number(args.actorId)
+            const maxCharacters = args.maxCharacters
+            Eli.PluginManager.currentInterpreter._params = [actorId, maxCharacters]
+            Eli.PluginManager.currentInterpreter.command303()
+
+        }else{
+            SceneManager.push(window[sceneClass])
         }
     },
 
@@ -1597,34 +1026,18 @@ function Eli_SavedContents() {
 
 Eli_SavedContents.prototype.initialize = function(){
     this.contents = {}
-    this.contents.Anime = {
-        data: {},
-        idCount: 0,
-    }
 }
 
 Eli_SavedContents.prototype.createNewContent = function(pluginName){
     this.contents[pluginName] = {}
 }
 
+Eli_SavedContents.prototype.createContentWithPluginParameters = function(pluginName, pluginParameters){
+    this.contents[pluginName] = Utils.makeDeepCopy(pluginParameters)
+}
+
 Eli_SavedContents.prototype.addNewDataToContent = function(pluginName, newData, value){
     this.contents[pluginName][newData] = value
-}
-
-Eli_SavedContents.prototype.storeAnimeData = function(data, id){
-    this.contents.Anime.data[id] = data
-}
-
-Eli_SavedContents.prototype.getAnimeData = function(id){
-    return this.contents.Anime.data[id]
-}
-
-Eli_SavedContents.prototype.deleteAnimeData = function(id){
-    delete this.contents.Anime.data[id]
-}
-
-Eli_SavedContents.prototype.getAnimeList = function(){
-    return this.contents.Anime.data
 }
 
 var $eliData = null
@@ -1717,26 +1130,6 @@ Bitmap.prototype._updateScaleMode = function() {
     Alias.Bitmap_updateScaleMode.call(this)
 }
 
-if(Eli.Book.engine().fixBitmapStartLoad){
-
-    Bitmap.prototype._startLoading = function() {
-        this._image = new Image();
-        this._image.onload = this._onLoad.bind(this);
-        this._image.onerror = this._onError.bind(this);
-        this._destroyCanvas();
-        this._loadingState = "loading";
-        if (Utils.hasEncryptedImages()) {
-            this._startDecrypting();
-        } else {
-            this._image.src = this._url;
-            // if (this._image.width > 0) {
-            //     this._image.onload = null;
-            //     this._onLoad();
-            // }
-        }
-    }
-}
-
 }
 
 /* --------------------------------- WINDOW --------------------------------- */
@@ -1752,13 +1145,6 @@ Window.prototype.initialize = function() {
 
 /* --------------------------------- SPRITE --------------------------------- */
 {
-
-Alias.Sprite_initialize = Sprite.prototype.initialize
-Sprite.prototype.initialize = function(bitmap){
-    this.initInnerAnimations()
-    Alias.Sprite_initialize.call(this, bitmap)
-    this.createMainRect()
-}
 
 /* ------------------------------- MAIN SPRITE ------------------------------ */
 {
@@ -1991,61 +1377,6 @@ TouchInput._onMouseMove = function(event) {
 /*                                    SCENE                                   */
 /* ========================================================================== */
 
-/* ------------------------------- SCENE BOOT ------------------------------- */
-{
-
-Alias.Scene_Boot_onDatabaseLoaded = Scene_Boot.prototype.onDatabaseLoaded
-Scene_Boot.prototype.onDatabaseLoaded = function() {
-    Alias.Scene_Boot_onDatabaseLoaded.call(this)
-    this.processDatabaseNotesAndMetas()
-}
-
-Scene_Boot.prototype.processDatabaseNotesAndMetas = function(){
-    for(let i = 1; i < $dataActors.length; i++){
-        this.processDataActors($dataActors[i])
-    }
-    for(let i = 1; i < $dataClasses.length; i++){
-        this.processDataClasses($dataClasses[i])
-    }
-    for(let i = 1; i < $dataSkills.length; i++){
-        this.processDataSkills($dataSkills[i])
-    }
-    for(let i = 1; i < $dataItems.length; i++){
-        this.processDataItems($dataItems[i])
-    }
-    for(let i = 1; i < $dataWeapons.length; i++){
-        this.processDataWeapons($dataWeapons[i])
-    }
-    for(let i = 1; i < $dataArmors.length; i++){
-        this.processDataArmors($dataArmors[i])
-    }
-    for(let i = 1; i < $dataEnemies.length; i++){
-        this.processDataEnemies($dataEnemies[i])
-    }
-    for(let i = 1; i < $dataTroops.length; i++){
-        this.processDataTroops($dataTroops[i])
-    }
-    for(let i = 1; i < $dataStates.length; i++){
-        this.processDataStates($dataStates[i])
-    }
-    for(let i = 1; i < $dataTilesets.length; i++){
-        this.processDataTilesets($dataTilesets[i])
-    }
-}
-
-Scene_Boot.prototype.processDataActors = function(data){}
-Scene_Boot.prototype.processDataClasses = function(data){}
-Scene_Boot.prototype.processDataSkills = function(data){}
-Scene_Boot.prototype.processDataItems = function(data){}
-Scene_Boot.prototype.processDataWeapons = function(data){}
-Scene_Boot.prototype.processDataArmors = function(data){}
-Scene_Boot.prototype.processDataEnemies = function(data){}
-Scene_Boot.prototype.processDataTroops = function(data){}
-Scene_Boot.prototype.processDataStates = function(data){}
-Scene_Boot.prototype.processDataTilesets = function(data){}
-
-}
-
 /* -------------------------------- SCENE MAP ------------------------------- */
 {
 
@@ -2093,24 +1424,13 @@ DataManager.extractSaveContents = function(contents) {
 /* ------------------------------ SCENE MANAGER ----------------------------- */
 {
 
-if(Eli.Book.playtest().gameFocus){
-
-    Alias.SceneManager_isGameActive = SceneManager.isGameActive
-    SceneManager.isGameActive = function() {
-        return Alias.SceneManager_isGameActive.call(this) || Utils.isOptionValid("test")
+Alias.SceneManager_goto = SceneManager.goto
+SceneManager.goto = function(sceneClass){
+    while(anime.running.length > 0){
+        anime.running[0].pause()
+        anime.running.shift()
     }
-}
-
-if(Eli.Book.playtest().quickRestart){
-
-    Alias.SceneManager_reloadGame = SceneManager.reloadGame
-    SceneManager.reloadGame = function() {
-        if(Utils.isNwjs()){
-            location.reload()
-        }else{
-            Alias.SceneManager_reloadGame.call(this)
-        }
-    }
+    Alias.SceneManager_goto.call(this, sceneClass)
 }
 
 }
@@ -2465,23 +1785,6 @@ Sprite_Picture.prototype.onBitmapLoad = function(){}
 
 }
 
-/* ---------------------------- SPRITE BATTLEBACK --------------------------- */
-{
-
-Alias.Sprite_Battleback_initialize = Sprite_Battleback.prototype.initialize
-Sprite_Battleback.prototype.initialize = function(type) {
-    Alias.Sprite_Battleback_initialize.call(this, type)
-    if(this.bitmap){ // Fix for Visu Visual Battle Env
-        this.bitmap.addLoadListener(() => {
-            this.onBitmapLoad(type)
-        })
-    }
-}
-
-Sprite_Battleback.prototype.onBitmapLoad = function(type){}
-
-}
-
 /* ========================================================================== */
 /*                                   WINDOW                                   */
 /* ========================================================================== */
@@ -2526,6 +1829,377 @@ Window_Base.prototype.refreshExtraBackgroundDimmer = function(type) {
     }
 }
 
+}
+
+/* ------------------------------ CHOICE WINDOW ----------------------------- */
+{
+
+Alias.Window_ChoiceList_close = Window_ChoiceList.prototype.close
+Window_ChoiceList.prototype.close = function() {
+    Alias.Window_ChoiceList_close.call(this)
+    $gameMessage.clearEventIds()
+}
+
+}
+
+/* ========================================================================== */
+/*                                  MV AND MZ                                 */
+/* ========================================================================== */
+
+if(Utils.RPGMAKER_NAME === "MV"){
+
+/* ------------------------------- ELI STRING ------------------------------- */
+Eli.String.replaceAll = function(str, replaceThis, withThat, flags = "g"){
+    const reg = new RegExp(replaceThis, flags)
+    return str.replace(reg, withThat)
+}
+
+/* -------------------------------- ELI UTILS ------------------------------- */
+Eli.Utils.convertEscapeCharacters = function(text){
+    const tempWin = new Window_Base(0,0,0,0)
+    text = tempWin.convertEscapeCharacters(text)
+
+    return text
+}
+
+Eli.Utils.getTextWidth = function(rawText, allLines, winClass = Window_Base){
+    const tempWin = new winClass(0, 0, 1000, 1000)
+
+    return tempWin.getTextWidth(rawText, allLines)
+}
+
+Eli.Utils.getTextHeight = function(text, allLines){
+    const tempWin = new Window_Base(0, 0, 1000, 1000)
+
+    return tempWin.getTextHeight(text, allLines)
+}
+
+Eli.Utils.getTextSettings = function(text, allLines){
+    const tempWin = new Window_Base(0, 0, 500, 500)
+    return tempWin.getTextSize(text, allLines)
+}
+
+Eli.Utils.getFaceSize = function(){
+    return {
+        width: Window_Base._faceWidth,
+        height: Window_Base._faceHeight
+    }
+}
+
+/* --------------------------------- BITMAP --------------------------------- */
+Alias.Bitmap_createBaseTexture = Bitmap.prototype._createBaseTexture
+Bitmap.prototype._createBaseTexture = function(source) {
+    if(Eli.Book.isPixelPerfect()){
+        this._smooth = false
+    }
+    Alias.Bitmap_createBaseTexture.call(this, source)
+}
+
+// Overwrite
+Bitmap.prototype._makeFontNameText = function() {
+    const italic = this.fontItalic ? 'Italic ' : ''
+    const bold = this.fontBold ? 'Bold ' : ''
+    const size = this.fontSize
+    const face = this.fontFace
+
+    return  `${italic}${bold}${size}px ${face}`
+}
+
+/* --------------------------------- WINDOW --------------------------------- */
+Object.defineProperty(Window.prototype, "innerWidth", {
+    get: function() {
+        return Math.max(0, this._width - this._padding * 2)
+    },
+    configurable: true
+})
+
+
+Object.defineProperty(Window.prototype, "innerHeight", {
+    get: function() {
+        return Math.max(0, this._height - this._padding * 2)
+    },
+    configurable: true
+})
+
+Window.prototype.addInnerChild = function(child) {
+    this._windowContentsSprite.addChild(child)
+}
+
+Window.prototype.destroy = function() {
+    const options = { children: true, texture: true }
+    PIXI.Container.prototype.destroy.call(this, options)
+}
+
+/* --------------------------------- SPRITE --------------------------------- */
+Alias.Sprite_initialize = Sprite.prototype.initialize
+Sprite.prototype.initialize = function(bitmap) {
+    Alias.Sprite_initialize.call(this, bitmap)
+    this._pressed = false
+    this._hovered = false
+    this.createMainRect()
+}
+
+// TOUCH START
+
+Alias.Sprite_update = Sprite.prototype.update
+Sprite.prototype.update = function(){
+    Alias.Sprite_update.call(this)
+    this.processTouchEx()
+}
+
+Sprite.prototype.processTouchEx = function() {
+    if (this.isClickEnabled()) {
+        if (this.isBeingTouched()) {
+            if (!this._hovered) { // && TouchInput.isHovered()
+                this._hovered = true
+                this.onMouseEnter()
+            }
+            if (TouchInput.isTriggered()) {
+                this._pressed = true
+                this.onPress()
+            }
+        } else {
+            if (this._hovered) {
+                this.onMouseExit()
+            }
+            this._pressed = false
+            this._hovered = false
+        }
+        if (this._pressed && TouchInput.isReleased()) {
+            this._pressed = false
+            this.onClick()
+        }
+    } else {
+        this._pressed = false
+        this._hovered = false
+    }
+}
+
+Sprite.prototype.isPressed = function() {
+    return this._pressed
+}
+
+Sprite.prototype.isClickEnabled = function() {
+    return this.worldVisible
+}
+
+Sprite.prototype.isBeingTouched = function() {
+    const touchPos = new Point(TouchInput.x, TouchInput.y)
+    const localPos = this.worldTransform.applyInverse(touchPos)
+    return this.hitTest(localPos.x, localPos.y)
+}
+
+Sprite.prototype.hitTest = function(x, y) {
+    const rect = new Rectangle(
+        -this.anchor.x * this.width,
+        -this.anchor.y * this.height,
+        this.width,
+        this.height
+    );
+    return rect.contains(x, y)
+}
+
+Sprite.prototype.onMouseEnter = function() {
+    //
+}
+
+Sprite.prototype.onMouseExit = function() {
+    //
+}
+
+Sprite.prototype.onPress = function() {
+    //
+}
+
+Sprite.prototype.onClick = function() {
+    //
+}
+
+/* -------------------------------- SCENE MAP ------------------------------- */
+Alias.Scene_Map_createDisplayObjects = Scene_Map.prototype.createDisplayObjects
+Scene_Map.prototype.createDisplayObjects = function() {
+    Alias.Scene_Map_createDisplayObjects.call(this)
+    this.createButtons()
+}
+
+Scene_Map.prototype.createButtons = function() {}
+
+/* ---------------------------- GAME INTERPRETER ---------------------------- */
+// Plugin Command
+Alias.Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand
+Game_Interpreter.prototype.pluginCommand = function(command, args) {
+    Eli.PluginManager.currentInterpreter = this
+    if(this._eventId > 0){
+        Eli.PluginManager.currentEventId = this._eventId
+    }
+    Alias.Game_Interpreter_pluginCommand.call(this, command, args)
+}
+
+// Script call
+Alias.Game_Interpreter_command355 = Game_Interpreter.prototype.command355
+Game_Interpreter.prototype.command355 = function() {
+    Eli.PluginManager.currentInterpreter = this
+    if(this._eventId > 0){
+        Eli.PluginManager.currentEventId = this._eventId
+    }
+    return Alias.Game_Interpreter_command355.call(this)
+}
+
+/* ---------------------------- SPRITESET BATTLE --------------------------- */
+Alias.Spriteset_Battle_createBattleback = Spriteset_Battle.prototype.createBattleback
+Spriteset_Battle.prototype.createBattleback = function() {
+    Alias.Spriteset_Battle_createBattleback.call(this)
+    if(this._back1Sprite.bitmap){
+        this._back1Sprite.bitmap.addLoadListener(() => {
+            this.onBattleback1Load()
+        })
+    }
+
+    if(this._back2Sprite.bitmap){
+        this._back2Sprite.bitmap.addLoadListener(() => {
+            this.onBattleback2Load()
+        })
+    }
+}
+
+Spriteset_Battle.prototype.onBattleback1Load = function(bitmap){}
+Spriteset_Battle.prototype.onBattleback2Load = function(bitmap){}
+
+/* ------------------------------- WINDOW BASE ------------------------------ */
+Window_Base.prototype.createDimmerSprite = function(){
+    this._dimmerSprite = new Sprite()
+    this._dimmerSprite.bitmap = new Bitmap(0, 0)
+    this.addChildToBack(this._dimmerSprite)
+}
+
+Window_Base.prototype.getTextSize = function(rawText, allLines){
+    return {
+        width: this.getTextWidth(rawText, allLines),
+        height: this.getTextHeight(rawText, allLines),
+    }
+}
+
+Window_Base.prototype.getTextWidth = function(rawText, allLines){
+    const tempText = rawText.substring(0)
+
+    if(allLines){
+        var width = Math.max(...tempText.split("\n").map(text => this.drawTextEx(text, -2000, -2000)))
+    }else{
+        var width = this.drawTextEx(tempText, -2000, -2000)
+    }
+
+    return width
+}
+
+Window_Base.prototype.getTextHeight = function(rawText, allLines){
+    const textState = {text: rawText.substr(0), index: 0}
+    const height = this.calcTextHeight(textState, allLines)
+
+    return height
+}
+
+Window_Base.prototype.createStrongBackground = function(){
+    const bitmap = this._dimmerSprite.bitmap
+    const width = this.width > 0 ? this.width + 8 : 0
+    const height = this.height
+    const margin = this.padding
+    const color1 = this.dimColor1()
+    const color2 = this.dimColor2()
+
+    bitmap.resize(width, height)
+    bitmap.fillRect(0, margin, width, height - margin * 2, color1)
+    this._dimmerSprite.setFrame(0, 0, width, height)
+}
+
+Window_Base.prototype.createLightGradientVerticalBackground = function(){
+    const bitmap = this._dimmerSprite.bitmap
+    const margin = this.padding
+    const width = this.width > 0 ? this.width + 8 : 0
+    const height = this.height
+    const color1 = "rgba(0, 0, 0, 0.7)"
+    const color2 = this.dimColor2()
+    const gradHeight = (height - margin * 2)/2
+    
+    bitmap.resize(width, height)
+    bitmap.gradientFillRect(0, margin, width, gradHeight, color1, color2, true)
+    //bitmap.fillRect(0, margin, width, height - margin * 2, color1)
+    bitmap.gradientFillRect(0, margin + gradHeight, width, gradHeight, color2, color1, true)
+    this._dimmerSprite.setFrame(0, 0, width, height)
+}
+
+Window_Base.prototype.createFadedHorizontalBackground = function(){
+    const bitmap = this._dimmerSprite.bitmap
+    const width = this.width > 0 ? this.width + 8 : 0
+    const height = this.height
+    const margin = this.padding
+    const color1 = this.dimColor1()
+    const color2 = this.dimColor2()
+
+    bitmap.resize(width, height)
+    bitmap.gradientFillRect(0, margin, width + width/2, height - margin * 2, color1, color2, false)
+    this._dimmerSprite.setFrame(0, 0, width, height)
+}
+
+Window_Base.prototype.getItemPadding = function(){
+    return this.textPadding()
+}
+
+Window_Base.prototype.getTextLineRect = function(index){
+    return this.itemRectForText(index)
+}
+
+}
+
+if(Utils.RPGMAKER_NAME === "MZ"){
+
+/* --------------------------- ELI PLUGIN MANAGER --------------------------- */
+Eli.PluginManager.registerCommands = function(plugin, commands){
+    const pluginName = this.getPluginName()
+
+    for(const command of commands){
+        const callBack = command
+        PluginManager.registerCommand(pluginName, command, plugin[callBack].bind(plugin))
+    }
+}
+
+/* --------------------------------- SPRITE --------------------------------- */
+Alias.Sprite_initialize = Sprite.prototype.initialize
+Sprite.prototype.initialize = function(bitmap){
+    this.initInnerAnimations()
+    Alias.Sprite_initialize.call(this, bitmap)
+    this.createMainRect()
+}
+
+/* ------------------------------ SCENE MANAGER ----------------------------- */
+Alias.SceneManager_isGameActive = SceneManager.isGameActive
+SceneManager.isGameActive = function() {
+    return  Alias.SceneManager_isGameActive.call(this) || 
+            (Eli.Book.playtest().gameFocus && Utils.isOptionValid("test"))
+}
+
+Alias.SceneManager_reloadGame = SceneManager.reloadGame
+SceneManager.reloadGame = function() {
+    if(Eli.Book.playtest().quickRestart && Utils.isNwjs()){
+        location.reload()
+    }else{
+        Alias.SceneManager_reloadGame.call(this)
+    }
+}
+
+/* ---------------------------- SPRITE BATTLEBACK --------------------------- */
+Alias.Sprite_Battleback_initialize = Sprite_Battleback.prototype.initialize
+Sprite_Battleback.prototype.initialize = function(type) {
+    Alias.Sprite_Battleback_initialize.call(this, type)
+    if(this.bitmap){ // Fix for Visu Visual Battle Env
+        this.bitmap.addLoadListener(() => {
+            this.onBitmapLoad(type)
+        })
+    }
+}
+
+Sprite_Battleback.prototype.onBitmapLoad = function(type){}
+
+/* ------------------------------- WINDOW BASE ------------------------------ */
 Window_Base.prototype.getTextSize = function(rawText, allLines){
     return this.textSizeEx(rawText.substring(0))
 }
@@ -2586,19 +2260,8 @@ Window_Base.prototype.getItemPadding = function(){
 
 Window_Base.prototype.getTextLineRect = function(index){
     // The equivalent for MV itemRectForText whould be itemRectWithPadding.
-    // But MZ only uses that a few times..
+    // But MZ only uses that a few times...
     return this.itemLineRect(index)
-}
-
-}
-
-/* ------------------------------ CHOICE WINDOW ----------------------------- */
-{
-
-Alias.Window_ChoiceList_close = Window_ChoiceList.prototype.close
-Window_ChoiceList.prototype.close = function() {
-    Alias.Window_ChoiceList_close.call(this)
-    $gameMessage.clearEventIds()
 }
 
 }
