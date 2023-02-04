@@ -1647,7 +1647,7 @@ Window_Gold.prototype.refresh = function () {
     const rect = this.itemLineRect(0);
     const x = rect.x;
     const y = rect.y;
-    const width = rect.width;
+    const width = 0;
     this.contents.clear();
     this.drawCurrencyValue(this.value(), this.currencyUnit(), x, y, width);
 };
