@@ -1,6 +1,6 @@
 [
 null,
-{"id":1,"expanded":true,"name":"ROOM","order":1,"parentId":0,"scrollX":627,"scrollY":371.5},
+{"id":1,"expanded":true,"name":"ROOM","order":1,"parentId":0,"scrollX":619,"scrollY":348.5},
 {"id":2,"expanded":true,"name":"COMPUTER","order":2,"parentId":0,"scrollX":619,"scrollY":348.5},
 {"id":3,"expanded":false,"name":"EMPTY","order":3,"parentId":0,"scrollX":619,"scrollY":348.5}
 ]
